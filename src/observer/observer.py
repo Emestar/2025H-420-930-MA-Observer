@@ -40,13 +40,10 @@ class Emetteur:
     def ajouter_observateur(self, observateur: IObservateur):
         self.observateurs.append(observateur)
 
-    def retirer_observateur(self, observateur: IObservateur):
-        if observateur in self.observateurs:
-            self.observateurs.remove(observateur)
-
     def notifier_observateurs(self, post_title):
         for observateur in self.observateurs:
             observateur.mettre_a_jour(post_title, observateur.email)
+
 class Blog(Emetteur):
     def __init__(self):
         super().__init__()
@@ -88,8 +85,6 @@ def main():
         blog.ajouter_observateur(Admin(a))
     for s in subscribers:
         blog.ajouter_observateur(Subscriber(s))
-
-    # blog.afficher_observateur()
 
     # Simulation de publications
     blog.new_post("Introduction à Python", "Bienvenue dans ce nouveau tutoriel sur Python.")
